@@ -7,7 +7,8 @@ metadata:
     app.kubernetes.io/part-of: tickbook
 data:
   # PostgreSQL (Azure PostgreSQL Flexible Server)
-  DB_HOST: "psql-tickbook-demo.postgres.database.azure.com"
+  # Replace with the actual FQDN from: terraform output postgres_fqdn
+  DB_HOST: "<REPLACE_WITH_TERRAFORM_OUTPUT>"
   DB_PORT: "5432"
 
   # Database names per service
