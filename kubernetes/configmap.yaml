@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tickbook-config
+  namespace: tickbook
+  labels:
+    app.kubernetes.io/part-of: tickbook
+data:
+  # PostgreSQL (Azure PostgreSQL Flexible Server)
+  DB_HOST: "psql-tickbook-demo.postgres.database.azure.com"
+  DB_PORT: "5432"
+
+  # Database names per service
+  EVENT_DB_NAME: "eventdb"
+  USER_DB_NAME: "userdb"
+  BOOKING_DB_NAME: "bookingdb"
+  PAYMENT_DB_NAME: "paymentdb"
+
+  # Redis (in-cluster)
+  REDIS_HOST: "redis"
+  REDIS_PORT: "6379"
+
+  # Kafka broker (in-cluster lightweight Kafka)
+  KAFKA_BROKERS: "kafka:9092"
+
+  # Internal service URLs
+  EVENT_SERVICE_URL: "http://event-service:3001"
+  USER_SERVICE_URL: "http://user-service:3002"
+  BOOKING_SERVICE_URL: "http://booking-service:3003"
