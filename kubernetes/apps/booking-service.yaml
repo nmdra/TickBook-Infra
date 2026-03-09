@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: booking-service
+  namespace: tickbook
+  labels:
+    app: booking-service
+    app.kubernetes.io/part-of: tickbook
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: booking-service
+  template:
+    metadata:
+      labels:
+        app: booking-service
+    spec:
+      containers:
+        - name: booking-service
+          image: ghcr.io/nmdra/tickbook/booking-service:latest
+          ports:
+            - containerPort: 3003
+          env:
+            - name: PORT
+              value: "3003"
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: tickbook-config
+                  key: DB_HOST
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: tickbook-config
+                  key: DB_PORT
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: tickbook-config
+                  key: BOOKING_DB_NAME
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: tickbook-secrets
+                  key: DB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: tickbook-secrets
+                  key: DB_PASSWORD
+            - name: KAFKA_BROKERS
+              valueFrom:
+                configMapKeyRef:
+                  name: tickbook-config
+                  key: KAFKA_BROKERS
+            - name: EVENT_SERVICE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: tickbook-config
+                  key: EVENT_SERVICE_URL
+            - name: USER_SERVICE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: tickbook-config
+                  key: USER_SERVICE_URL
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: booking-service
+  namespace: tickbook
+  labels:
+    app: booking-service
+    app.kubernetes.io/part-of: tickbook
+spec:
+  selector:
+    app: booking-service
+  ports:
+    - port: 3003
+      targetPort: 3003
