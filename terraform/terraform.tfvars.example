@@ -1,7 +1,7 @@
 resource_group_name     = "aca-demo-rg"
 registry_name           = "myregistry"
 image_tag               = "latest"
-postgres_admin_password = "REPLACE_ME_ComplexP@ssw0rd123!"
+postgres_admin_password = "YOUR_secure_PASSWORD_HERE_123!"
 
 services = {
   event-service = {
