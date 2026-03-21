@@ -29,12 +29,12 @@ resource "azurerm_container_app" "postgres" {
 
       env {
         name  = "POSTGRES_USER"
-        value = "postgres"
+        value = var.postgres_admin_user
       }
 
       env {
         name  = "POSTGRES_PASSWORD"
-        value = "postgres"
+        value = var.postgres_admin_password
       }
     }
 
