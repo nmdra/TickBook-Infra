@@ -18,12 +18,12 @@ variable "postgres_admin_user" {
 
 variable "postgres_admin_password" {
   type        = string
-  description = "PostgreSQL admin password for the container app databases."
+  description = "PostgreSQL admin password for the container app databases (min 8 chars, upper/lowercase, number, special)."
   sensitive   = true
 
   validation {
-    condition     = length(var.postgres_admin_password) >= 8
-    error_message = "postgres_admin_password must be at least 8 characters."
+    condition     = can(regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9]).{8,}$", var.postgres_admin_password))
+    error_message = "postgres_admin_password must be at least 8 characters and include upper/lowercase, a number, and a special character."
   }
 }
 
