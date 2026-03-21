@@ -22,7 +22,7 @@ variable "postgres_admin_password" {
   sensitive   = true
 
   validation {
-    condition     = can(regex("^(?=.{12,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9]).*$", var.postgres_admin_password))
+    condition     = can(regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9]).{12,}$", var.postgres_admin_password))
     error_message = "postgres_admin_password must be at least 12 characters and include upper/lowercase, a number, and a special character."
   }
 }
