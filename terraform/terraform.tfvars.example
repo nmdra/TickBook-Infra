@@ -1,0 +1,22 @@
+resource_group_name = "aca-demo-rg"
+registry_name       = "myregistry"
+image_tag           = "latest"
+
+services = {
+  event-service = {
+    port = 3001
+    db   = "eventdb"
+  }
+  user-service = {
+    port = 3002
+    db   = "userdb"
+  }
+  booking-service = {
+    port = 3003
+    db   = "bookingdb"
+  }
+  payment-service = {
+    port = 3004
+    db   = "paymentdb"
+  }
+}
