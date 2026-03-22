@@ -159,7 +159,7 @@ resource "azurerm_container_app" "kafka" {
   ingress {
     external_enabled = false
     target_port      = 9092
-    transport        = "tcp" # ← critical for Kafka
+    transport        = "tcp" 
     exposed_port     = 9092
     traffic_weight {
       latest_revision = true
@@ -227,6 +227,12 @@ resource "azurerm_container_app" "services" {
     max_replicas = 1
   }
 
+  depends_on = [
+    azurerm_container_app.postgres,
+    azurerm_container_app.redis,
+    azurerm_container_app.kafka,
+  ]
+
   ingress {
     external_enabled = false
     target_port      = each.value.port
@@ -293,6 +299,10 @@ resource "azurerm_container_app" "gateway" {
       percentage      = 100
     }
   }
+
+  depends_on = [
+    azurerm_container_app.services,
+  ]
 
   lifecycle {
     ignore_changes = [
