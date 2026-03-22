@@ -1,4 +1,6 @@
 locals {
+  internal_domain = "internal.${azurerm_container_app_environment.env.default_domain}"
+
   common_env = {
     DB_USER       = var.postgres_user
     DB_PASSWORD   = var.postgres_password
@@ -20,15 +22,15 @@ locals {
       GOOGLE_REDIRECT_URI    = var.google_redirect_uri
       FRONTEND_SUCCESS_URL   = var.frontend_success_url
       FRONTEND_DASHBOARD_URL = var.frontend_dashboard_url
-      BOOKING_SERVICE_URL    = "http://booking-service:3003"
-      PAYMENT_SERVICE_URL    = "http://payment-service:3004"
+      BOOKING_SERVICE_URL    = "https://booking-service.${local.internal_domain}"
+      PAYMENT_SERVICE_URL    = "https://payment-service.${local.internal_domain}"
     }
     booking-service = {
-      EVENT_SERVICE_URL = "http://event-service:3001"
-      USER_SERVICE_URL  = "http://user-service:3002"
+      EVENT_SERVICE_URL = "https://event-service.${local.internal_domain}"
+      USER_SERVICE_URL  = "https://user-service.${local.internal_domain}"
     }
     payment-service = {
-      BOOKING_SERVICE_URL   = "http://booking-service:3003"
+      BOOKING_SERVICE_URL   = "https://booking-service.${local.internal_domain}"
       STRIPE_SECRET_KEY     = var.stripe_secret_key
       STRIPE_WEBHOOK_SECRET = var.stripe_webhook_secret
       STRIPE_CURRENCY       = var.stripe_currency
