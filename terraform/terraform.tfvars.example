@@ -24,12 +24,12 @@ services = {
   }
 }
 
-postgres_password  = "ExampleP@ssw0rd!123"
+postgres_password  = "your-secure-password-here"
 postgres_user      = "postgres"
 postgres_sslmode   = "disable"
 
-jwt_secret         = "ExampleJwtSecret!123"
-jwt_refresh_secret = "ExampleJwtRefresh!123"
+jwt_secret         = "your-jwt-secret-min-32-chars"
+jwt_refresh_secret = "your-jwt-refresh-secret-min-32-chars"
 
 google_client_id       = "your-google-client-id"
 google_client_secret   = "your-google-client-secret"
