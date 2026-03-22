@@ -159,7 +159,7 @@ resource "azurerm_container_app" "kafka" {
   ingress {
     external_enabled = false
     target_port      = 9092
-    transport        = "tcp" 
+    transport        = "tcp"
     exposed_port     = 9092
     traffic_weight {
       latest_revision = true

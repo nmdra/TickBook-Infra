@@ -6,5 +6,10 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 4.0"
     }
+
+    vercel = {
+      source  = "vercel/vercel"
+      version = "~> 1.0"
+    }
   }
 }

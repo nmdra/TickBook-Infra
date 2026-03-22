@@ -7,3 +7,8 @@ output "gateway_url" {
   description = "Public URL for the NGINX gateway."
   value       = "https://${azurerm_container_app.gateway.ingress[0].fqdn}"
 }
+
+output "vercel_deployment_url" {
+  description = "Latest Vercel deployment URL"
+  value       = vercel_deployment.frontend.url
+}

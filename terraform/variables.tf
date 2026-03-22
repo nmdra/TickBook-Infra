@@ -127,3 +127,26 @@ variable "image_path" {
 variable "custom_domain" {
   type = string
 }
+
+variable "vercel_api_token" {
+  description = "Vercel API token"
+  type        = string
+  sensitive   = true
+}
+
+variable "vercel_team_id" {
+  description = "Vercel team ID — null if personal account"
+  type        = string
+  default     = null
+}
+
+variable "vercel_project_name" {
+  description = "Exact project name in Vercel dashboard"
+  type        = string
+}
+
+variable "vercel_branch" {
+  description = "Branch to trigger redeploy on"
+  type        = string
+  default     = "main"
+}
