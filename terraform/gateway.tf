@@ -2,7 +2,7 @@ resource "azurerm_container_app" "gateway" {
   name                         = "nginx-gateway"
   resource_group_name          = azurerm_resource_group.rg.name
   container_app_environment_id = azurerm_container_app_environment.env.id
-revision_mode                = "Single"
+  revision_mode                = "Single"
 
   template {
     container {
@@ -50,8 +50,8 @@ revision_mode                = "Single"
     external_enabled = true
     target_port      = 80
     traffic_weight {
-  latest_revision = true
-  percentage      = 100
-}
+      latest_revision = true
+      percentage      = 100
+    }
   }
 }

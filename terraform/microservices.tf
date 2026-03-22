@@ -4,12 +4,12 @@ resource "azurerm_container_app" "services" {
   name                         = each.key
   resource_group_name          = azurerm_resource_group.rg.name
   container_app_environment_id = azurerm_container_app_environment.env.id
-    revision_mode                = "Single"
+  revision_mode                = "Single"
 
   template {
     container {
       name   = each.key
-      image  = "${var.registry_name}.azurecr.io/${each.key}:${var.image_tag}"
+      image  = "${var.registry_name}${each.key}:${var.image_tag}"
       cpu    = 0.25
       memory = "0.5Gi"
 
@@ -53,8 +53,8 @@ resource "azurerm_container_app" "services" {
     external_enabled = false
     target_port      = each.value.port
     traffic_weight {
-  latest_revision = true
-  percentage      = 100
-}
+      latest_revision = true
+      percentage      = 100
+    }
   }
 }

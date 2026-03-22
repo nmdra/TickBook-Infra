@@ -2,7 +2,7 @@ resource "azurerm_container_app" "redis" {
   name                         = "redis"
   resource_group_name          = azurerm_resource_group.rg.name
   container_app_environment_id = azurerm_container_app_environment.env.id
-revision_mode                = "Single"
+  revision_mode                = "Single"
 
   template {
     container {
@@ -20,8 +20,8 @@ revision_mode                = "Single"
     external_enabled = false
     target_port      = 6379
     traffic_weight {
-  latest_revision = true
-  percentage      = 100
-}
+      latest_revision = true
+      percentage      = 100
+    }
   }
 }

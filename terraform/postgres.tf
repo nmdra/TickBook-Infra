@@ -1,9 +1,9 @@
 locals {
   postgres_dbs = {
-    event    = "eventdb"
-    user     = "userdb"
-    booking  = "bookingdb"
-    payment  = "paymentdb"
+    event   = "eventdb"
+    user    = "userdb"
+    booking = "bookingdb"
+    payment = "paymentdb"
   }
 }
 
@@ -46,8 +46,8 @@ resource "azurerm_container_app" "postgres" {
     external_enabled = false
     target_port      = 5432
     traffic_weight {
-  latest_revision = true
-  percentage      = 100
-}
+      latest_revision = true
+      percentage      = 100
+    }
   }
 }
