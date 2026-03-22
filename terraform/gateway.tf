@@ -13,12 +13,12 @@ revision_mode                = "Single"
 
       env {
         name  = "NGINX_HOST"
-        value = "localhost"
+        value = var.nginx_host
       }
 
       env {
         name  = "NGINX_PORT"
-        value = "80"
+        value = var.nginx_port
       }
 
       env {

@@ -20,3 +20,20 @@ services = {
     db   = "paymentdb"
   }
 }
+
+postgres_user          = "postgres"
+postgres_password      = "postgres"
+jwt_secret             = "demo-secret-change-in-production"
+jwt_refresh_secret     = "demo-refresh-secret-change-in-production"
+google_client_id       = "your-google-client-id"
+google_client_secret   = "your-google-client-secret"
+google_redirect_uri    = "http://localhost:3002/api/users/auth/google/callback"
+frontend_success_url   = "http://localhost:3002/google-auth-success.html"
+frontend_dashboard_url = "http://localhost:3000/dashboard"
+stripe_secret_key      = ""
+stripe_webhook_secret  = ""
+stripe_currency        = "usd"
+stripe_success_url     = "http://localhost:3004/api/payments/stripe/success"
+stripe_cancel_url      = "http://localhost:3004/api/payments/stripe/cancel"
+nginx_host             = "localhost"
+nginx_port             = "80"
