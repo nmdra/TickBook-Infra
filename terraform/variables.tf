@@ -4,7 +4,9 @@ variable "location" {
 
 variable "resource_group_name" {}
 
-variable "registry_name" {}
+variable "registry_name" {
+  type = string
+}
 
 variable "image_tag" {
   default = "latest"
@@ -114,4 +116,14 @@ variable "nginx_host" {
 variable "nginx_port" {
   type    = number
   default = 80
+}
+
+variable "image_path" {
+  type        = string
+  default     = "nmdra/tickbook"
+  description = "Base image path in ACR (e.g. nmdra/tickbook)."
+}
+
+variable "custom_domain" {
+  type = string
 }

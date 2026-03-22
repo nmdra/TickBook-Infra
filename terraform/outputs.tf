@@ -5,5 +5,5 @@ output "env_domain" {
 
 output "gateway_url" {
   description = "Public URL for the NGINX gateway."
-  value       = "https://${azurerm_container_app.gateway.latest_revision_fqdn}"
+  value       = "https://${azurerm_container_app.gateway.ingress[0].fqdn}"
 }

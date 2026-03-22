@@ -11,7 +11,7 @@ resource "azurerm_container_app" "postgres" {
   for_each = local.postgres_dbs
 
   name                         = "postgres-${each.key}"
-  resource_group_name          = azurerm_resource_group.rg.name
+  resource_group_name          = data.azurerm_resource_group.rg.name
   container_app_environment_id = azurerm_container_app_environment.env.id
   revision_mode                = "Single"
 
@@ -26,15 +26,13 @@ resource "azurerm_container_app" "postgres" {
         name  = "POSTGRES_DB"
         value = each.value
       }
-
       env {
         name  = "POSTGRES_USER"
-        value = "postgres"
+        value = var.postgres_user
       }
-
       env {
         name  = "POSTGRES_PASSWORD"
-        value = "postgres"
+        value = var.postgres_password
       }
     }
 
@@ -45,6 +43,9 @@ resource "azurerm_container_app" "postgres" {
   ingress {
     external_enabled = false
     target_port      = 5432
+    exposed_port     = 5432
+    transport        = "tcp"
+
     traffic_weight {
       latest_revision = true
       percentage      = 100
