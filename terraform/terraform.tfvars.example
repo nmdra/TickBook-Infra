@@ -47,5 +47,6 @@ stripe_cancel_url     = "http://localhost:3004/api/payments/stripe/cancel"
 nginx_host = "localhost"
 nginx_port = 80
 
-# Custom domain for the nginx gateway FQDN (optional).
-custom_domain = "example.com"
+vercel_api_token    = "secret"
+vercel_project_name = "project-name"
+vercel_branch       = "main"
