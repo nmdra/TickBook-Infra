@@ -28,17 +28,17 @@ resource "azurerm_container_app" "kafka" {
 
       env {
         name  = "KAFKA_LISTENERS"
-        value = "PLAINTEXT://0.0.0.0:29092,CONTROLLER://0.0.0.0:9093"
+        value = "PLAINTEXT://kafka:29092,PLAINTEXT_HOST://0.0.0.0:9092,CONTROLLER://kafka:9093"
       }
 
       env {
         name  = "KAFKA_ADVERTISED_LISTENERS"
-        value = "PLAINTEXT://kafka:29092"
+        value = "PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092"
       }
 
       env {
         name  = "KAFKA_LISTENER_SECURITY_PROTOCOL_MAP"
-        value = "PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT"
+        value = "PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT,CONTROLLER:PLAINTEXT"
       }
 
       env {
