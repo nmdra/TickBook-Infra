@@ -19,10 +19,14 @@ Minimal, low-cost Azure AKS deployment setup for the [TickBook](https://github.c
 
 ```
 ├── terraform/                  # Azure infrastructure
+│   ├── versions.tf             # Terraform and provider versions
 │   ├── providers.tf            # Provider configuration
-│   ├── main.tf                 # Resource Group, AKS, VNet, PostgreSQL, Event Hubs
-│   ├── variables.tf            # Input variables with cost-optimized defaults
-│   └── outputs.tf              # Useful output values
+│   ├── main.tf                 # Container Apps, data services, gateway
+│   ├── data.tf                 # Data sources
+│   ├── locals.tf               # Local values
+│   ├── variables.tf            # Input variables
+│   ├── outputs.tf              # Useful output values
+│   └── terraform.tfvars.example # Example variable values
 ├── kubernetes/                 # Kubernetes manifests
 │   ├── namespace.yaml          # tickbook namespace
 │   ├── configmap.yaml          # Shared configuration

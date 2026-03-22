@@ -1,41 +1,51 @@
-locals {
-  internal_domain = "internal.${azurerm_container_app_environment.env.default_domain}"
+resource_group_name = "rg-tickbook-demo"
+registry_name       = "tickbookregistry.azurecr.io"
+location            = "East US"
 
-  common_env = {
-    DB_USER       = var.postgres_user
-    DB_PASSWORD   = var.postgres_password
-    DB_PORT       = "5432"
-    KAFKA_BROKERS = "kafka.${local.internal_domain}:9092" 
+image_path = "nmdra/tickbook"
+image_tag  = "latest"
+
+services = {
+  "event-service" = {
+    port = 3001
+    db   = "eventdb"
   }
-
-  service_env = {
-    event-service = {
-      REDIS_HOST = "redis.${local.internal_domain}"
-      REDIS_PORT = "6379"
-    }
-    user-service = {
-      DATABASE_URL           = format("postgresql://%s:%s@postgres-user.%s:5432/userdb?sslmode=%s", var.postgres_user, var.postgres_password, local.internal_domain, var.postgres_sslmode)
-      JWT_SECRET             = var.jwt_secret
-      JWT_REFRESH_SECRET     = var.jwt_refresh_secret
-      GOOGLE_CLIENT_ID       = var.google_client_id
-      GOOGLE_CLIENT_SECRET   = var.google_client_secret
-      GOOGLE_REDIRECT_URI    = var.google_redirect_uri
-      FRONTEND_SUCCESS_URL   = var.frontend_success_url
-      FRONTEND_DASHBOARD_URL = var.frontend_dashboard_url
-      BOOKING_SERVICE_URL    = "https://booking-service.${local.internal_domain}"
-      PAYMENT_SERVICE_URL    = "https://payment-service.${local.internal_domain}"
-    }
-    booking-service = {
-      EVENT_SERVICE_URL = "https://event-service.${local.internal_domain}"
-      USER_SERVICE_URL  = "https://user-service.${local.internal_domain}"
-    }
-    payment-service = {
-      BOOKING_SERVICE_URL   = "https://booking-service.${local.internal_domain}"
-      STRIPE_SECRET_KEY     = var.stripe_secret_key
-      STRIPE_WEBHOOK_SECRET = var.stripe_webhook_secret
-      STRIPE_CURRENCY       = var.stripe_currency
-      STRIPE_SUCCESS_URL    = var.stripe_success_url
-      STRIPE_CANCEL_URL     = var.stripe_cancel_url
-    }
+  "user-service" = {
+    port = 3002
+    db   = "userdb"
+  }
+  "booking-service" = {
+    port = 3003
+    db   = "bookingdb"
+  }
+  "payment-service" = {
+    port = 3004
+    db   = "paymentdb"
   }
 }
+
+postgres_password  = "REPLACE_WITH_SECURE_PASSWORD_MIN_32_CHARS"
+postgres_user      = "postgres"
+postgres_sslmode   = "disable"
+
+# JWT secrets must be cryptographically random (e.g., `openssl rand -base64 32`) and never committed.
+jwt_secret         = "REPLACE_WITH_CRYPTOGRAPHICALLY_RANDOM_SECRET"
+jwt_refresh_secret = "REPLACE_WITH_CRYPTOGRAPHICALLY_RANDOM_REFRESH_SECRET"
+
+google_client_id       = "your-google-client-id"
+google_client_secret   = "your-google-client-secret"
+google_redirect_uri    = "http://localhost:3002/api/users/auth/google/callback"
+frontend_success_url   = "http://localhost:3002/google-auth-success.html"
+frontend_dashboard_url = "http://localhost:3000/dashboard"
+
+stripe_secret_key     = "sk_test_YOUR_STRIPE_SECRET_KEY"
+stripe_webhook_secret = "whsec_YOUR_WEBHOOK_SECRET"
+stripe_currency       = "usd"
+stripe_success_url    = "http://localhost:3004/api/payments/stripe/success"
+stripe_cancel_url     = "http://localhost:3004/api/payments/stripe/cancel"
+
+nginx_host = "localhost"
+nginx_port = 80
+
+# Custom domain for the nginx gateway FQDN (optional).
+custom_domain = "example.com"

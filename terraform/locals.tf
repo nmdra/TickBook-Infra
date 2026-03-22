@@ -1,4 +1,11 @@
 locals {
+  postgres_dbs = {
+    event   = "eventdb"
+    user    = "userdb"
+    booking = "bookingdb"
+    payment = "paymentdb"
+  }
+
   internal_domain = "internal.${azurerm_container_app_environment.env.default_domain}"
 
   common_env = {
