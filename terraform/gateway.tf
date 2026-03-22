@@ -10,6 +10,36 @@ revision_mode                = "Single"
       image  = "${var.registry_name}.azurecr.io/nginx-gateway:${var.image_tag}"
       cpu    = 0.25
       memory = "0.5Gi"
+
+      env {
+        name  = "NGINX_HOST"
+        value = var.nginx_host
+      }
+
+      env {
+        name  = "NGINX_PORT"
+        value = tostring(var.nginx_port)
+      }
+
+      env {
+        name  = "EVENT_SERVICE_URL"
+        value = "http://event-service:3001"
+      }
+
+      env {
+        name  = "USER_SERVICE_URL"
+        value = "http://user-service:3002"
+      }
+
+      env {
+        name  = "BOOKING_SERVICE_URL"
+        value = "http://booking-service:3003"
+      }
+
+      env {
+        name  = "PAYMENT_SERVICE_URL"
+        value = "http://payment-service:3004"
+      }
     }
 
     min_replicas = 0

@@ -35,6 +35,14 @@ resource "azurerm_container_app" "services" {
           value = env.value
         }
       }
+
+      dynamic "env" {
+        for_each = lookup(local.service_env, each.key, {})
+        content {
+          name  = env.key
+          value = env.value
+        }
+      }
     }
 
     min_replicas = 0
