@@ -56,11 +56,13 @@ variable "jwt_refresh_secret" {
 variable "google_client_id" {
   default   = "your-google-client-id"
   sensitive = true
+  description = "Replace with a real OAuth client ID for non-local deployments."
 }
 
 variable "google_client_secret" {
   default   = "your-google-client-secret"
   sensitive = true
+  description = "Replace with a real OAuth client secret for non-local deployments."
 }
 
 variable "google_redirect_uri" {
@@ -81,11 +83,13 @@ variable "frontend_dashboard_url" {
 variable "stripe_secret_key" {
   default   = ""
   sensitive = true
+  description = "Set when Stripe payments are enabled."
 }
 
 variable "stripe_webhook_secret" {
   default   = ""
   sensitive = true
+  description = "Set when Stripe webhook verification is enabled."
 }
 
 variable "stripe_currency" {
