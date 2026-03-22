@@ -26,6 +26,11 @@ variable "postgres_password" {
   sensitive = true
 }
 
+variable "postgres_sslmode" {
+  default     = "disable"
+  description = "Set to require/verify-full for production deployments."
+}
+
 variable "jwt_secret" {
   default   = "demo-secret-change-in-production"
   sensitive = true
@@ -47,15 +52,18 @@ variable "google_client_secret" {
 }
 
 variable "google_redirect_uri" {
-  default = "http://localhost:3002/api/users/auth/google/callback"
+  default     = "http://localhost:3002/api/users/auth/google/callback"
+  description = "Override for non-local deployments."
 }
 
 variable "frontend_success_url" {
-  default = "http://localhost:3002/google-auth-success.html"
+  default     = "http://localhost:3002/google-auth-success.html"
+  description = "Override for non-local deployments."
 }
 
 variable "frontend_dashboard_url" {
-  default = "http://localhost:3000/dashboard"
+  default     = "http://localhost:3000/dashboard"
+  description = "Override for non-local deployments."
 }
 
 variable "stripe_secret_key" {
@@ -73,17 +81,21 @@ variable "stripe_currency" {
 }
 
 variable "stripe_success_url" {
-  default = "http://localhost:3004/api/payments/stripe/success"
+  default     = "http://localhost:3004/api/payments/stripe/success"
+  description = "Override for non-local deployments."
 }
 
 variable "stripe_cancel_url" {
-  default = "http://localhost:3004/api/payments/stripe/cancel"
+  default     = "http://localhost:3004/api/payments/stripe/cancel"
+  description = "Override for non-local deployments."
 }
 
 variable "nginx_host" {
-  default = "localhost"
+  default     = "localhost"
+  description = "Override for non-local deployments."
 }
 
 variable "nginx_port" {
-  default = "80"
+  type    = number
+  default = 80
 }

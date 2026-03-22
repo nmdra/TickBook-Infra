@@ -18,7 +18,7 @@ revision_mode                = "Single"
 
       env {
         name  = "NGINX_PORT"
-        value = var.nginx_port
+        value = tostring(var.nginx_port)
       }
 
       env {

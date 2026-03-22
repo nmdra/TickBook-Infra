@@ -23,6 +23,7 @@ services = {
 
 postgres_user          = "postgres"
 postgres_password      = "postgres"
+postgres_sslmode       = "disable"
 jwt_secret             = "demo-secret-change-in-production"
 jwt_refresh_secret     = "demo-refresh-secret-change-in-production"
 google_client_id       = "your-google-client-id"
@@ -36,4 +37,4 @@ stripe_currency        = "usd"
 stripe_success_url     = "http://localhost:3004/api/payments/stripe/success"
 stripe_cancel_url      = "http://localhost:3004/api/payments/stripe/cancel"
 nginx_host             = "localhost"
-nginx_port             = "80"
+nginx_port             = 80

@@ -12,7 +12,7 @@ locals {
       REDIS_PORT = "6379"
     }
     user-service = {
-      DATABASE_URL           = format("postgresql://%s:%s@postgres-user:5432/userdb?sslmode=disable", var.postgres_user, var.postgres_password)
+      DATABASE_URL           = format("postgresql://%s:%s@postgres-user:5432/userdb?sslmode=%s", var.postgres_user, var.postgres_password, var.postgres_sslmode)
       JWT_SECRET             = var.jwt_secret
       JWT_REFRESH_SECRET     = var.jwt_refresh_secret
       GOOGLE_CLIENT_ID       = var.google_client_id
