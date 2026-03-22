@@ -23,22 +23,22 @@ revision_mode                = "Single"
 
       env {
         name  = "EVENT_SERVICE_URL"
-        value = "http://event-service:3001"
+        value = "https://event-service.${local.internal_domain}"
       }
 
       env {
         name  = "USER_SERVICE_URL"
-        value = "http://user-service:3002"
+        value = "https://user-service.${local.internal_domain}"
       }
 
       env {
         name  = "BOOKING_SERVICE_URL"
-        value = "http://booking-service:3003"
+        value = "https://booking-service.${local.internal_domain}"
       }
 
       env {
         name  = "PAYMENT_SERVICE_URL"
-        value = "http://payment-service:3004"
+        value = "https://payment-service.${local.internal_domain}"
       }
     }
 
