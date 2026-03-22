@@ -24,10 +24,11 @@ services = {
   }
 }
 
-postgres_password  = "your-secure-password-here"
+postgres_password  = "CHANGEME-use-strong-password-with-32+chars"
 postgres_user      = "postgres"
 postgres_sslmode   = "disable"
 
+# JWT secrets must be cryptographically random (e.g., `openssl rand -base64 32`) and never committed.
 jwt_secret         = "your-jwt-secret-min-32-chars"
 jwt_refresh_secret = "your-jwt-refresh-secret-min-32-chars"
 
@@ -46,4 +47,5 @@ stripe_cancel_url     = "http://localhost:3004/api/payments/stripe/cancel"
 nginx_host = "localhost"
 nginx_port = 80
 
+# Custom domain for the nginx gateway FQDN (optional).
 custom_domain = "example.com"
