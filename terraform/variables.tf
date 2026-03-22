@@ -22,8 +22,12 @@ variable "postgres_user" {
 }
 
 variable "postgres_password" {
-  default   = "postgres"
+  type      = string
   sensitive = true
+  validation {
+    condition     = length(var.postgres_password) > 0
+    error_message = "postgres_password must be set to a non-empty value."
+  }
 }
 
 variable "postgres_sslmode" {
@@ -32,13 +36,21 @@ variable "postgres_sslmode" {
 }
 
 variable "jwt_secret" {
-  default   = "demo-secret-change-in-production"
+  type      = string
   sensitive = true
+  validation {
+    condition     = length(var.jwt_secret) > 0
+    error_message = "jwt_secret must be set to a non-empty value."
+  }
 }
 
 variable "jwt_refresh_secret" {
-  default   = "demo-refresh-secret-change-in-production"
+  type      = string
   sensitive = true
+  validation {
+    condition     = length(var.jwt_refresh_secret) > 0
+    error_message = "jwt_refresh_secret must be set to a non-empty value."
+  }
 }
 
 variable "google_client_id" {
