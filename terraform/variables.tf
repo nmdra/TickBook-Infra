@@ -108,6 +108,39 @@ variable "stripe_cancel_url" {
   description = "Override for non-local deployments."
 }
 
+variable "sendgrid_api_key" {
+  default     = ""
+  sensitive   = true
+  description = "Set when SendGrid email notifications are enabled."
+}
+
+variable "sendgrid_from_email" {
+  default     = "no-reply@tickbook.local"
+  description = "Default sender email used by notification service."
+}
+
+variable "twilio_account_sid" {
+  default     = ""
+  sensitive   = true
+  description = "Set when Twilio SMS/WhatsApp notifications are enabled."
+}
+
+variable "twilio_auth_token" {
+  default     = ""
+  sensitive   = true
+  description = "Set when Twilio SMS/WhatsApp notifications are enabled."
+}
+
+variable "twilio_sms_from" {
+  default     = ""
+  description = "Optional Twilio sender for SMS notifications."
+}
+
+variable "twilio_whatsapp_from" {
+  default     = "whatsapp:+14155238886"
+  description = "Optional Twilio sender for WhatsApp notifications."
+}
+
 variable "nginx_host" {
   default     = "localhost"
   description = "Override for non-local deployments."
