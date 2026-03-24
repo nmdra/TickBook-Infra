@@ -287,11 +287,11 @@ resource "azurerm_container_app" "gateway" {
     allow_insecure_connections = false
 
     cors {
-      allowed_origins           = ["*"]
+      allowed_origins           = var.allowed_origins
       allowed_methods           = ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"]
       allowed_headers           = ["*"]
       max_age_in_seconds        = 3600
-      allow_credentials_enabled = false
+      allow_credentials_enabled = true
     }
 
     traffic_weight {

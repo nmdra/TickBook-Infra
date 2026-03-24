@@ -150,3 +150,12 @@ variable "vercel_branch" {
   type        = string
   default     = "main"
 }
+
+variable "allowed_origins" {
+  description = "Allowed CORS origins"
+  type        = list(string)
+
+  default = [
+    "https://*.vercel.app",
+  ]
+}

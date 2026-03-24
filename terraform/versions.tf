@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 1.3"
+  required_version = ">= 1.14"
 
   required_providers {
     azurerm = {
@@ -9,7 +9,7 @@ terraform {
 
     vercel = {
       source  = "vercel/vercel"
-      version = "~> 1.0"
+      version = "~> 4.0"
     }
   }
 }
