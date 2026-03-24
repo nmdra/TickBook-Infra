@@ -116,15 +116,15 @@ resource "azurerm_container_app" "kafka" {
       }
       env {
         name  = "KAFKA_LISTENERS"
-        value = "PLAINTEXT://0.0.0.0:29092,PLAINTEXT_HOST://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093"
+        value = "PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093"
       }
       env {
         name  = "KAFKA_ADVERTISED_LISTENERS"
-        value = "PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092"
+        value = "PLAINTEXT://kafka:9092"
       }
       env {
         name  = "KAFKA_LISTENER_SECURITY_PROTOCOL_MAP"
-        value = "PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT,CONTROLLER:PLAINTEXT"
+        value = "PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT"
       }
       env {
         name  = "KAFKA_INTER_BROKER_LISTENER_NAME"
@@ -132,7 +132,7 @@ resource "azurerm_container_app" "kafka" {
       }
       env {
         name  = "KAFKA_CONTROLLER_QUORUM_VOTERS"
-        value = "1@kafka:9093"
+        value = "1@localhost:9093"
       }
       env {
         name  = "KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR"
@@ -162,9 +162,9 @@ resource "azurerm_container_app" "kafka" {
 
   ingress {
     external_enabled = false
-    target_port      = 29092
+    target_port      = 9092
     transport        = "tcp"
-    exposed_port     = 29092
+    exposed_port     = 9092
     traffic_weight {
       latest_revision = true
       percentage      = 100
@@ -191,7 +191,7 @@ resource "azurerm_container_app" "kafbat_ui" {
       }
       env {
         name  = "KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS"
-        value = "kafka:29092"
+        value = "kafka:9092"
       }
       env {
         name  = "KAFKA_CLUSTERS_0_READONLY"

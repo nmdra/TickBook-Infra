@@ -108,13 +108,13 @@ variable "stripe_cancel_url" {
   description = "Override for non-local deployments."
 }
 
-variable "sendgrid_api_key" {
+variable "resend_api_key" {
   default     = ""
   sensitive   = true
   description = "Set when SendGrid email notifications are enabled."
 }
 
-variable "sendgrid_from_email" {
+variable "resend_from_email" {
   default     = "no-reply@tickbook.local"
   description = "Default sender email used by notification service."
 }

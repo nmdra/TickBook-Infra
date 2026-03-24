@@ -12,7 +12,7 @@ locals {
     DB_PORT       = "5432"
     DB_USER       = var.postgres_user
     DB_PASSWORD   = var.postgres_password
-    KAFKA_BROKERS = "kafka:29092"
+    KAFKA_BROKERS = "kafka:9092"
   }
 
   service_env = {
@@ -22,7 +22,7 @@ locals {
     }
     user-service = {
       DATABASE_URL           = format("postgresql://%s:%s@postgres-user:5432/userdb?sslmode=%s", var.postgres_user, var.postgres_password, var.postgres_sslmode)
-      KAFKA_BROKERS          = "kafka:29092"
+      KAFKA_BROKERS          = "kafka:9092"
       JWT_SECRET             = var.jwt_secret
       JWT_REFRESH_SECRET     = var.jwt_refresh_secret
       GOOGLE_CLIENT_ID       = var.google_client_id
@@ -34,12 +34,12 @@ locals {
       PAYMENT_SERVICE_URL    = "http://payment-service.${local.internal_domain}"
     }
     booking-service = {
-      KAFKA_PAYMENTS_TOPIC = "payments"
-      KAFKA_PAYMENTS_GROUP = "booking-service"
+      KAFKA_PAYMENTS_TOPIC  = "payments"
+      KAFKA_PAYMENTS_GROUP  = "booking-service"
       KAFKA_SEAT_LOCK_GROUP = "booking-seat-lock-processor"
-      REDIS_ADDR           = "redis:6379"
-      EVENT_SERVICE_URL    = "http://event-service.${local.internal_domain}"
-      USER_SERVICE_URL     = "http://user-service.${local.internal_domain}"
+      REDIS_ADDR            = "redis:6379"
+      EVENT_SERVICE_URL     = "http://event-service.${local.internal_domain}"
+      USER_SERVICE_URL      = "http://user-service.${local.internal_domain}"
     }
     payment-service = {
       KAFKA_RECONNECT_INTERVAL_MS = "15000"
@@ -54,7 +54,7 @@ locals {
       STRIPE_CANCEL_URL           = var.stripe_cancel_url
     }
     notification-service = {
-      KAFKA_BROKERS                = "kafka:29092"
+      KAFKA_BROKERS                = "kafka:9092"
       NOTIF_ROUTER_CLIENT_ID       = "notification-router"
       NOTIF_ROUTER_GROUP           = "notification-router"
       NOTIF_DOMAIN_TOPICS          = "bookings,payments,seat.lock.expired,waitlist,refunds"
@@ -67,8 +67,8 @@ locals {
       NOTIF_PUSH_DLQ_TOPIC         = "notif.push.dlq"
       NOTIF_WHATSAPP_DLQ_TOPIC     = "notif.whatsapp.dlq"
       NOTIFICATION_WORKER_CHANNELS = "email,sms,push,whatsapp"
-      SENDGRID_API_KEY             = var.sendgrid_api_key
-      SENDGRID_FROM_EMAIL          = var.sendgrid_from_email
+      RESEND_API_KEY             = var.resend_api_key
+      RESEND_FROM_EMAIL          = var.resend_from_email
       TWILIO_ACCOUNT_SID           = var.twilio_account_sid
       TWILIO_AUTH_TOKEN            = var.twilio_auth_token
       TWILIO_SMS_FROM              = var.twilio_sms_from
