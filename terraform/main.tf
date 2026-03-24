@@ -120,11 +120,15 @@ resource "azurerm_container_app" "kafka" {
       }
       env {
         name  = "KAFKA_ADVERTISED_LISTENERS"
-        value = "PLAINTEXT://kafka:9092" # ACA resolves by app name
+        value = "PLAINTEXT://kafka:9092"
       }
       env {
         name  = "KAFKA_LISTENER_SECURITY_PROTOCOL_MAP"
         value = "PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT"
+      }
+      env {
+        name  = "KAFKA_INTER_BROKER_LISTENER_NAME"
+        value = "PLAINTEXT"
       }
       env {
         name  = "KAFKA_CONTROLLER_QUORUM_VOTERS"
@@ -168,6 +172,57 @@ resource "azurerm_container_app" "kafka" {
   }
 }
 
+resource "azurerm_container_app" "kafbat_ui" {
+  name                         = "kafbat-ui"
+  resource_group_name          = data.azurerm_resource_group.rg.name
+  container_app_environment_id = azurerm_container_app_environment.env.id
+  revision_mode                = "Single"
+
+  template {
+    container {
+      name   = "kafbat-ui"
+      image  = "kafbat/kafka-ui:latest"
+      cpu    = 0.25
+      memory = "0.5Gi"
+
+      env {
+        name  = "KAFKA_CLUSTERS_0_NAME"
+        value = "local"
+      }
+      env {
+        name  = "KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS"
+        value = "kafka:9092"
+      }
+      env {
+        name  = "KAFKA_CLUSTERS_0_READONLY"
+        value = "false"
+      }
+      env {
+        name  = "SWAGGER_UI_ENABLED"
+        value = "true"
+      }
+    }
+
+    min_replicas = 1
+    max_replicas = 1
+  }
+
+  ingress {
+    external_enabled = true
+    target_port      = 8080
+    transport        = "http"
+
+    traffic_weight {
+      latest_revision = true
+      percentage      = 100
+    }
+  }
+
+  depends_on = [
+    azurerm_container_app.kafka,
+  ]
+}
+
 resource "azurerm_container_app" "services" {
   for_each                     = var.services
   name                         = each.key
@@ -197,13 +252,19 @@ resource "azurerm_container_app" "services" {
         name  = "PORT"
         value = tostring(each.value.port)
       }
-      env {
-        name  = "DB_HOST"
-        value = "postgres-${replace(each.key, "-service", "")}" # fixed
+      dynamic "env" {
+        for_each = each.value.db != "" ? [1] : []
+        content {
+          name  = "DB_HOST"
+          value = "postgres-${replace(each.key, "-service", "")}"
+        }
       }
-      env {
-        name  = "DB_NAME"
-        value = each.value.db
+      dynamic "env" {
+        for_each = each.value.db != "" ? [1] : []
+        content {
+          name  = "DB_NAME"
+          value = each.value.db
+        }
       }
 
       dynamic "env" {

@@ -34,20 +34,45 @@ locals {
       PAYMENT_SERVICE_URL    = "http://payment-service.${local.internal_domain}"
     }
     booking-service = {
-      KAFKA_PAYMENTS_TOPIC = "payments"
-      KAFKA_PAYMENTS_GROUP = "booking-service"
-      EVENT_SERVICE_URL    = "http://event-service.${local.internal_domain}"
-      USER_SERVICE_URL     = "http://user-service.${local.internal_domain}"
+      KAFKA_PAYMENTS_TOPIC  = "payments"
+      KAFKA_PAYMENTS_GROUP  = "booking-service"
+      KAFKA_SEAT_LOCK_GROUP = "booking-seat-lock-processor"
+      REDIS_ADDR            = "redis:6379"
+      EVENT_SERVICE_URL     = "http://event-service.${local.internal_domain}"
+      USER_SERVICE_URL      = "http://user-service.${local.internal_domain}"
     }
     payment-service = {
       KAFKA_RECONNECT_INTERVAL_MS = "15000"
       KAFKA_PAYMENTS_TOPIC        = "payments"
+      REDIS_HOST                  = "redis"
+      REDIS_PORT                  = "6379"
       BOOKING_SERVICE_URL         = "http://booking-service.${local.internal_domain}"
       STRIPE_SECRET_KEY           = var.stripe_secret_key
       STRIPE_WEBHOOK_SECRET       = var.stripe_webhook_secret
       STRIPE_CURRENCY             = var.stripe_currency
       STRIPE_SUCCESS_URL          = var.stripe_success_url
       STRIPE_CANCEL_URL           = var.stripe_cancel_url
+    }
+    notification-service = {
+      KAFKA_BROKERS                = "kafka:9092"
+      NOTIF_ROUTER_CLIENT_ID       = "notification-router"
+      NOTIF_ROUTER_GROUP           = "notification-router"
+      NOTIF_DOMAIN_TOPICS          = "bookings,payments,seat.lock.expired,waitlist,refunds"
+      NOTIF_EMAIL_TOPIC            = "notif.email"
+      NOTIF_SMS_TOPIC              = "notif.sms"
+      NOTIF_PUSH_TOPIC             = "notif.push"
+      NOTIF_WHATSAPP_TOPIC         = "notif.whatsapp"
+      NOTIF_EMAIL_DLQ_TOPIC        = "notif.email.dlq"
+      NOTIF_SMS_DLQ_TOPIC          = "notif.sms.dlq"
+      NOTIF_PUSH_DLQ_TOPIC         = "notif.push.dlq"
+      NOTIF_WHATSAPP_DLQ_TOPIC     = "notif.whatsapp.dlq"
+      NOTIFICATION_WORKER_CHANNELS = "email,sms,push,whatsapp"
+      RESEND_API_KEY             = var.resend_api_key
+      RESEND_FROM_EMAIL          = var.resend_from_email
+      TWILIO_ACCOUNT_SID           = var.twilio_account_sid
+      TWILIO_AUTH_TOKEN            = var.twilio_auth_token
+      TWILIO_SMS_FROM              = var.twilio_sms_from
+      TWILIO_WHATSAPP_FROM         = var.twilio_whatsapp_from
     }
   }
 
@@ -58,5 +83,6 @@ locals {
     USER_SERVICE_URL    = "https://user-service.${local.internal_domain}"
     BOOKING_SERVICE_URL = "https://booking-service.${local.internal_domain}"
     PAYMENT_SERVICE_URL = "https://payment-service.${local.internal_domain}"
+    NOTIFICATION_SERVICE_URL = "https://notification-service.${local.internal_domain}"
   }
 }

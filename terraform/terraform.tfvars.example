@@ -22,6 +22,10 @@ services = {
     port = 3004
     db   = "paymentdb"
   }
+  "notification-service" = {
+    port = 3005
+    db   = ""
+  }
 }
 
 postgres_password  = "REPLACE_WITH_SECURE_PASSWORD_MIN_32_CHARS"
@@ -42,6 +46,13 @@ stripe_webhook_secret = "whsec_YOUR_WEBHOOK_SECRET"
 stripe_currency       = "usd"
 stripe_success_url    = "http://localhost:3004/api/payments/stripe/success"
 stripe_cancel_url     = "http://localhost:3004/api/payments/stripe/cancel"
+
+sendgrid_api_key     = ""
+sendgrid_from_email  = "no-reply@tickbook.local"
+twilio_account_sid   = ""
+twilio_auth_token    = ""
+twilio_sms_from      = ""
+twilio_whatsapp_from = "whatsapp:+14155238886"
 
 nginx_host = "localhost"
 nginx_port = 80

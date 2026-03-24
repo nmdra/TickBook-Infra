@@ -12,3 +12,8 @@ output "vercel_deployment_url" {
   description = "Latest Vercel deployment URL"
   value       = vercel_deployment.frontend.url
 }
+
+output "kafbat_ui_url" {
+  description = "Public URL for the Kafbat UI."
+  value       = "https://${azurerm_container_app.kafbat_ui.ingress[0].fqdn}"
+}
