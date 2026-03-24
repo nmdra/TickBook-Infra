@@ -98,7 +98,7 @@ resource "azurerm_container_app" "kafka" {
   template {
     container {
       name   = "kafka"
-      image  = "confluentinc/cp-kafka:8.2.0"
+      image  = "confluentinc/cp-kafka:7.6.0"
       cpu    = 0.5
       memory = "1Gi"
 
