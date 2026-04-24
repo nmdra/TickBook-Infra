@@ -8,6 +8,10 @@ variable "registry_name" {
   type = string
 }
 
+variable "registry_prefix" {
+  type = string
+}
+
 variable "image_tag" {
   default = "latest"
 }
@@ -111,7 +115,7 @@ variable "stripe_cancel_url" {
 variable "resend_api_key" {
   default     = ""
   sensitive   = true
-  description = "Set when SendGrid email notifications are enabled."
+  description = "Set when resend email notifications are enabled."
 }
 
 variable "resend_from_email" {
@@ -159,6 +163,11 @@ variable "image_path" {
 
 variable "custom_domain" {
   type = string
+}
+
+variable "internal_service_token" {
+  type      = string
+  sensitive = true
 }
 
 variable "vercel_api_token" {

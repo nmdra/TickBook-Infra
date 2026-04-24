@@ -19,3 +19,4 @@ resource "vercel_deployment" "frontend" {
 
   depends_on = [vercel_project_environment_variable.api_url]
 }
+

@@ -23,6 +23,8 @@ locals {
     user-service = {
       DATABASE_URL           = format("postgresql://%s:%s@postgres-user:5432/userdb?sslmode=%s", var.postgres_user, var.postgres_password, var.postgres_sslmode)
       KAFKA_BROKERS          = "kafka:9092"
+      KAFKA_USERS_TOPIC      = "users"
+      INTERNAL_SERVICE_TOKEN = var.internal_service_token
       JWT_SECRET             = var.jwt_secret
       JWT_REFRESH_SECRET     = var.jwt_refresh_secret
       GOOGLE_CLIENT_ID       = var.google_client_id
@@ -57,7 +59,7 @@ locals {
       KAFKA_BROKERS                = "kafka:9092"
       NOTIF_ROUTER_CLIENT_ID       = "notification-router"
       NOTIF_ROUTER_GROUP           = "notification-router"
-      NOTIF_DOMAIN_TOPICS          = "bookings,payments,seat.lock.expired,waitlist,refunds"
+      NOTIF_DOMAIN_TOPICS          = "users,events,bookings,payments,seat.lock.expired,waitlist,refunds"
       NOTIF_EMAIL_TOPIC            = "notif.email"
       NOTIF_SMS_TOPIC              = "notif.sms"
       NOTIF_PUSH_TOPIC             = "notif.push"
@@ -73,6 +75,8 @@ locals {
       TWILIO_AUTH_TOKEN            = var.twilio_auth_token
       TWILIO_SMS_FROM              = var.twilio_sms_from
       TWILIO_WHATSAPP_FROM         = var.twilio_whatsapp_from
+      USER_SERVICE_URL            = "https://user-service.${local.internal_domain}"
+      INTERNAL_SERVICE_TOKEN = var.internal_service_token
     }
   }
 
